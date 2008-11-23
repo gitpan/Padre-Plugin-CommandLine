@@ -7,6 +7,10 @@ my $builder = Module::Build->new(
     license             => 'perl',
     dist_author         => 'Gabor Szabo <szabgab@gmail.com>',
     dist_version_from   => 'lib/Padre/Plugin/CommandLine.pm',
+    requires => {
+		'Padre'             => '0.17',
+		'Wx::Perl::Dialog'  => '0.03',
+    },
     build_requires => {
         'Test::More' => 0,
     },

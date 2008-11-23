@@ -5,7 +5,9 @@ WriteMakefile
           'NAME' => 'Padre::Plugin::CommandLine',
           'VERSION_FROM' => 'lib/Padre/Plugin/CommandLine.pm',
           'PREREQ_PM' => {
-                           'Test::More' => 0
+                           'Padre' => '0.17',
+                           'Test::More' => 0,
+                           'Wx::Perl::Dialog' => '0.03'
                          },
           'INSTALLDIRS' => 'site',
           'EXE_FILES' => [],
