@@ -3,9 +3,12 @@ package Padre::Plugin::CommandLine;
 use warnings;
 use strict;
 
+our @ISA = 'Padre::Plugin';
+
 use Cwd              ();
 use Wx::Perl::Dialog ();
 use Padre::Wx        ();
+use Padre::Util      ('_T');
 use File::Spec       ();
 use File::Basename   ();
 
@@ -15,11 +18,11 @@ Padre::Plugin::CommandLine - vi and emacs in Padre ?
 
 =head1 VERSION
 
-Version 0.01
+Version 0.03
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 SYNOPSIS
 
@@ -55,16 +58,19 @@ It does NOT support save-as or providing filename.
 
 =cut
 
-my @menu = (
-    ["About",        \&about],
-    ["Show Prompt\tAlt-`",     \&show_prompt],
-);
-
-sub menu {
-    my ($self) = @_;
-    return @menu;
+sub padre_interfaces {
+	'Padre::Plugin'   => 0.43,
+	'Padre::Document' => 0.21,
 }
 
+my @menu = (
+    _T("About"),                 \&about,
+    _T("Show Prompt\tAlt-`"),    \&show_prompt,
+);
+
+sub menu_plugins_simple {
+	return ('CommandLine' => \@menu);
+}
 
 my @layout =  (
 	[
@@ -78,10 +84,10 @@ my @layout =  (
 my $tab_started;
 my $last_tab;
 sub show_prompt {
-	my $main   = Padre->ide->wx->main_window;
+	my $main   = Padre->ide->wx->main;
 	my $dialog = Padre::Wx::Dialog->new(
 		parent   => $main,
-		title    => "Command Line",
+		title    => _T("Command Line"),
 		layout   => \@layout,
 		width    => [500],
 	);
